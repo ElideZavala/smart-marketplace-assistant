@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home').then(c => c.Home),
-    title: 'Smart Grocery Assistant - AI-Powered Shopping Lists'
+    title: 'Smart Marketplace Assistant - AI-Powered Shopping Lists'
   },
   {
     path: "**",
