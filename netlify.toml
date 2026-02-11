@@ -3,10 +3,16 @@
   publish = "dist/smart-marketplace-assistant/browser"
   functions = "netlify/functions"
 
+[dev]
+  command = "ng serve"
+  targetPort = 4200
+  port = 8888
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/*"

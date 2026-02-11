@@ -43,3 +43,6 @@ Thumbs.db
 
 .env
 service-account.json
+
+# Local Netlify folder
+.netlify

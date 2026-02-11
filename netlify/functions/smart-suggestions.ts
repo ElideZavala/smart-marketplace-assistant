@@ -1,24 +1,19 @@
 import { Handler } from '@netlify/functions';
 import { initializeGenkit, simpleSuggestionsFlow } from '../../src/genkit/index';
-import { GroceryItem } from '../../src/app/models/grocery.type';
 
-// Initialize Genkit once (outside handler for reuse)
 let genkitInitialized = false;
 
-const handler: Handler = async (event, context) => {
-  // CORS headers
+export const handler: Handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
   };
 
-  // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 204, headers, body: '' };
   }
 
-  // Only allow POST
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -28,7 +23,6 @@ const handler: Handler = async (event, context) => {
   }
 
   try {
-    // Initialize Genkit only once
     if (!genkitInitialized) {
       initializeGenkit();
       genkitInitialized = true;
@@ -44,11 +38,10 @@ const handler: Handler = async (event, context) => {
       };
     }
 
-    const itemNames = (items as GroceryItem[]).map((item) => item.name);
-
+    const itemNames = items.map((item: any) => item.name);
     const result = await simpleSuggestionsFlow({ items: itemNames });
 
-    const suggestions = result.suggestions.map((suggestion) => ({
+    const suggestions = result.suggestions.map((suggestion: any) => ({
       item: {
         id: Math.random().toString(36).substring(2),
         name: suggestion.name,
@@ -80,5 +73,3 @@ const handler: Handler = async (event, context) => {
     };
   }
 };
-
-export { handler };
