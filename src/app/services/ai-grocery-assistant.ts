@@ -13,7 +13,7 @@ export class AiGroceryAssistant {
     if (!request) return undefined;
 
     return {
-      url: '/api/smart-suggestions',
+      url: '/.netlify/functions/smart-suggestions',
       method: 'POST',
       body: request,
     };
